@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const postsRoutes = require("./routes/posts")
+// const postsRoutes = require("./routes/posts")
+const dealCardsRoutes = require("./routes/dealCards")
 
 const app = express();
 
@@ -37,7 +38,7 @@ app.use((req, res, next) => {
 });
 
 // app.use("/api/posts", postsRoutes);
-app.use("/api/v1/deal-cards", dealCardsRoutes);
+app.use("/api/v1/deal", dealCardsRoutes);
 
 
 module.exports = app;
