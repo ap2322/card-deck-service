@@ -1,6 +1,14 @@
 var sinon = require('sinon');
 var Deck = require("../../models/deck");
 
+function uniqueCount(array) {
+  let unique = array.filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  })
+
+  return unique.length
+}
+
 describe('Test the deck class', () => {
   test('It should make an array of 52 cards', () => {
     const { deck } = new Deck();
@@ -20,6 +28,8 @@ describe('Test the deck class', () => {
     ]
 
     expect(deck).toEqual(initialDeck)
+
+    expect(uniqueCount(deck)).toEqual(52)
   });
 
   test('It can shuffle the 52 card array', () => {
