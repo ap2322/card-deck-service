@@ -36,7 +36,8 @@ app.use((req, res, next) => {
   next()
 });
 
-app.use("/api/posts", postsRoutes);
+// app.use("/api/posts", postsRoutes);
+app.use("/api/v1/deal-cards", dealCardsRoutes);
 
 
 module.exports = app;
