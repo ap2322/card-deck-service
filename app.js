@@ -8,15 +8,25 @@ const dealCardsRoutes = require("./routes/dealCards")
 
 const app = express();
 const environment = process.env.NODE_ENV || 'development';
-
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@cluster0-0bjmx.mongodb.net/${environment}?retryWrites=true&w=majority`,
+console.log("environment", environment)
+if (environment === 'production') {
+  mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@cluster0-0bjmx.mongodb.net/${environment}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log("Connected to database!")
-  })
-  .catch(() => {
-    console.log("Connection failed")
-  })
+    .then(() => {
+      console.log("Connected to database!")
+    })
+    .catch(() => {
+      console.log("Connection failed")
+    })
+} else {
+  mongoose.connect(`mongodb://localhost/cardDeck_${environment}`,
+    { useNewUrlParser: true, useUnifiedTopology: true });
+  mongoose.connection
+    .once('open', () => console.log(`Connected to cardDeck_${environment}`))
+    .on('error', (error) => {
+      console.warn('Warning', error);
+    })
+}
 
 app.use(bodyParser.json());
 
