@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test'
 const app = require("../app");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
@@ -21,17 +22,22 @@ describe("Deal Endpoint", () => {
         expect(res.body.data.percentCorrect).to.be.a('number');
         done();
       });
-
-    // DEBUG: connection to test db
-    DealtCards.find()
-      .then(result => {
-        console.log(result.percentCorrect)
-        // expect(result.countDocuments()).to.equal(3);
-      })
-      .catch(error => error);
   });
 
+  it("Adds dealtCards to the database after hitting the POST /deal endpoint", () => {
+    DealtCards.find()
+      .then((dealtCards) => {
+        expect(dealtCards.length).to.equal(1);
+        expect(dealtCards[0].dealtCardMatrix).to.be.an('array');
+        expect(dealtCards[0].dealtCardMatrix.length).to.equal(4);
+        expect(dealtCards[0]).to.have.property('_id').that.is.a('string');
+        expect(dealtCards[0]).to.have.property('percentCorrect').that.is.a('number');
+      })
+      .catch(error=> error)
+  })
+
   after(done => {
+    console.log('done with test')
     mongoose.connection.db.dropDatabase(() => {
       mongoose.connection.close(done);
     });
