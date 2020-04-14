@@ -35,6 +35,37 @@ class Deck {
     return deckMatrix;
   }
 
+  calculatePoints() {
+    const deckMatrix = this.dealInMatrix();
+    const correctSuitOrder = [ 'S', 'D', 'H', 'C'];
+    const correctValueOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '1', 'J', 'Q', 'K'];
+    let correctSuitCount = 0;
+    let correctValueCount = 0;
+
+    for (let r=0; r < deckMatrix.length; r++) {
+      let row = deckMatrix[r];
+      for (let c=0; c < row.length; c++) {
+        let lastCharIndex = row[c].length - 1
+        if (row[c].charAt(lastCharIndex) === correctSuitOrder[r]) {
+          correctSuitCount++;
+        }
+        if (row[c].charAt(0) === correctValueOrder[c]){
+          correctValueCount++;
+        }
+      }
+    }
+
+    return correctSuitCount + correctValueCount;
+  }
+
+  percentCorrect() {
+    let points = this.calculatePoints();
+    let totalPoints = 104;
+    let percentage = (points/totalPoints).toFixed(2);
+
+    return percentage;
+  }
+
 }
 
 module.exports = Deck;
