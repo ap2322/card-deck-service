@@ -20,6 +20,10 @@ describe("Deal Endpoint", () => {
         expect(res.body.data.dealtCardMatrix[0].length).to.equal(13);
         done();
       });
+
+    DealtCards.find().count().then(result => {
+      expect(result).to.equal(1);
+    });
   });
 
   after(done => {
