@@ -7,8 +7,9 @@ const mongoose = require('mongoose');
 const dealCardsRoutes = require("./routes/dealCards")
 
 const app = express();
+const environment = process.env.NODE_ENV || 'development';
 
-mongoose.connect(`mongodb+srv://ap2322:${process.env.MONGO_PW}@cluster0-0bjmx.mongodb.net/test?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@cluster0-0bjmx.mongodb.net/${environment}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("Connected to database!")
