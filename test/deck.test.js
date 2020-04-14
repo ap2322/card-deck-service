@@ -75,5 +75,18 @@ describe('Test the deck class', () => {
     let shuffledDeck = deck.shuffle()
 
     assert.equal(shuffledDeck.calculatePoints(), (7 + 0 + 6 + 6 + 3))
+    stub.restore();
+  });
+
+  it('Calculates the percentage points correct', () => {
+    const deck = new Deck();
+
+    assert.equal(deck.percentCorrect(), 1);
+
+    var stub = sinon.stub(Math, 'random').returns(.5);
+    let shuffledDeck = deck.shuffle()
+
+    assert.equal(shuffledDeck.percentCorrect(), .21);
+    stub.restore();
   })
 })

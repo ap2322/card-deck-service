@@ -58,6 +58,14 @@ class Deck {
     return correctSuitCount + correctValueCount;
   }
 
+  percentCorrect() {
+    let points = this.calculatePoints();
+    let totalPoints = 104;
+    let percentage = (points/totalPoints).toFixed(2);
+    
+    return percentage;
+  }
+
 }
 
 module.exports = Deck;
