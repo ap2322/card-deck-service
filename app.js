@@ -38,6 +38,10 @@ app.use((req, res, next) => {
   next()
 });
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Welcome To Card-Deck API" });
+});
+
 // app.use("/api/posts", postsRoutes);
 app.use("/api/v1/deal", dealCardsRoutes);
 
