@@ -21,9 +21,11 @@ describe("Deal Endpoint", () => {
         done();
       });
 
-    DealtCards.find().count().then(result => {
+    DealtCards.find().countDocuments()
+      .then(result => {
       expect(result).to.equal(1);
-    });
+      })
+      .catch(error => error);
   });
 
   after(done => {

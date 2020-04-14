@@ -11,7 +11,7 @@ function uniqueCount(array) {
   return unique.length
 }
 
-describe.only('Test the deck class', () => {
+describe('Test the deck class', () => {
   it('It should make an array of 52 cards', () => {
     const { deck } = new Deck();
     let length = deck.length
@@ -66,14 +66,14 @@ describe.only('Test the deck class', () => {
      assert.equal(dealtMatrix[0].length, 13)
   });
 
-  it.only('Can add up all the points of each suit being in the correct row', () =>{
+  it('Can add up all the points of a matrix', () =>{
     const deck = new Deck();
-    console.log('deck in test', deck.calculateRowPoints())
-    assert.equal(deck.calculateRowPoints(), 52)
+
+    assert.equal(deck.calculatePoints(), 104)
 
     var stub = sinon.stub(Math, 'random').returns(.5);
     let shuffledDeck = deck.shuffle()
 
-    assert.equal(shuffledDeck.calculateRowPoints(), (7 + 0 + 6 + 6))
+    assert.equal(shuffledDeck.calculatePoints(), (7 + 0 + 6 + 6 + 3))
   })
 })

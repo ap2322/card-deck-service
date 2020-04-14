@@ -35,10 +35,12 @@ class Deck {
     return deckMatrix;
   }
 
-  calculateRowPoints() {
+  calculatePoints() {
     const deckMatrix = this.dealInMatrix();
     const correctSuitOrder = [ 'S', 'D', 'H', 'C'];
+    const correctValueOrder = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '1', 'J', 'Q', 'K'];
     let correctSuitCount = 0;
+    let correctValueCount = 0;
 
     for (let r=0; r < deckMatrix.length; r++) {
       let row = deckMatrix[r];
@@ -47,10 +49,13 @@ class Deck {
         if (row[c].charAt(lastCharIndex) === correctSuitOrder[r]) {
           correctSuitCount++;
         }
+        if (row[c].charAt(0) === correctValueOrder[c]){
+          correctValueCount++;
+        }
       }
     }
-    
-    return correctSuitCount;
+
+    return correctSuitCount + correctValueCount;
   }
 
 }
