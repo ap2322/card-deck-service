@@ -35,6 +35,24 @@ class Deck {
     return deckMatrix;
   }
 
+  calculateRowPoints() {
+    const deckMatrix = this.dealInMatrix();
+    const correctSuitOrder = [ 'S', 'D', 'H', 'C'];
+    let correctSuitCount = 0;
+
+    for (let r=0; r < deckMatrix.length; r++) {
+      let row = deckMatrix[r];
+      for (let c=0; c < row.length; c++) {
+        let lastCharIndex = row[c].length - 1
+        if (row[c].charAt(lastCharIndex) === correctSuitOrder[r]) {
+          correctSuitCount++;
+        }
+      }
+    }
+    
+    return correctSuitCount;
+  }
+
 }
 
 module.exports = Deck;
