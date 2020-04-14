@@ -18,6 +18,7 @@ describe("Deal Endpoint", () => {
         expect(res.body.data.dealtCardMatrix).to.be.an('array');
         expect(res.body.data.dealtCardMatrix.length).to.equal(4);
         expect(res.body.data.dealtCardMatrix[0].length).to.equal(13);
+        expect(res.body.data.percentCorrect).to.be.a('number');
         done();
       });
 

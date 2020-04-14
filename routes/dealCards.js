@@ -8,8 +8,11 @@ const DealtCards = require('../models/dealtCards.js')
 
 router.post("", (req, res, next) => {
   const deck = new Deck();
+  const shuffledDeck = deck.shuffle();
+
   const dealtCards = new DealtCards({
-    dealtCardMatrix: deck.shuffle().dealInMatrix()
+    dealtCardMatrix: shuffledDeck.dealInMatrix(),
+    percentCorrect: shuffledDeck.percentCorrect()
   })
 
   dealtCards.save()
@@ -17,7 +20,8 @@ router.post("", (req, res, next) => {
       res.status(201).json({
         message: 'Cards shuffled and dealt successfully',
         data: {
-          dealtCardMatrix: result.dealtCardMatrix
+          dealtCardMatrix: result.dealtCardMatrix,
+          percentCorrect: result.percentCorrect
         }
       })
     })
