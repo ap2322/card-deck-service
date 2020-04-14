@@ -1,5 +1,7 @@
+var assert = require('chai').assert
 var sinon = require('sinon');
-var Deck = require("../../models/deck");
+var Deck = require("../models/deck");
+
 
 function uniqueCount(array) {
   let unique = array.filter((value, index, self) => {
@@ -10,11 +12,11 @@ function uniqueCount(array) {
 }
 
 describe('Test the deck class', () => {
-  test('It should make an array of 52 cards', () => {
+  it('It should make an array of 52 cards', () => {
     const { deck } = new Deck();
     let length = deck.length
 
-    expect(length).toEqual(52)
+    assert.equal(length, 52)
 
     const initialDeck = [
       'AS',  '2S',  '3S',  '4S', '5S', '6S', '7S',
@@ -27,12 +29,12 @@ describe('Test the deck class', () => {
       'JC',  'QC',  'KC'
     ]
 
-    expect(deck).toEqual(initialDeck)
-
-    expect(uniqueCount(deck)).toEqual(52)
+    assert.deepEqual(deck, initialDeck)
+    assert.equal(uniqueCount(deck), 52)
   });
 
-  test('It can shuffle the 52 card array', () => {
+
+  it('It can shuffle the 52 card array', () => {
     const deck = new Deck();
     var stub = sinon.stub(Math, 'random').returns(.5);
     let shuffledDeck = deck.shuffle()
@@ -46,12 +48,13 @@ describe('Test the deck class', () => {
         '9D', '6C', '10D', '8C',  'JD',  '10C', 'QD',
         'QC', 'KD', 'AH'
       ]
-    expect(shuffledDeck.deck).toEqual(expectedDeck)
+
+    assert.deepEqual(shuffledDeck.deck, expectedDeck)
 
     stub.restore();
   });
 
-  test('It can create a 4 row, 13 column matrix of cards', () => {
+  it('It can create a 4 row, 13 column matrix of cards', () => {
      const deck = new Deck();
      const expectedMatrix = [
        ['AS',  '2S',  '3S',  '4S', '5S', '6S', '7S', '8S',  '9S',  '10S', 'JS', 'QS', 'KS' ],
@@ -60,8 +63,10 @@ describe('Test the deck class', () => {
        ['AC', '2C', '3C', '4C',  '5C',  '6C',  '7C', '8C', '9C', '10C', 'JC',  'QC',  'KC']
      ]
 
-     expect(deck.dealInMatrix()).toEqual(expectedMatrix)
-     expect(deck.dealInMatrix().length).toEqual(4)
-     expect(deck.dealInMatrix()[0].length).toEqual(13)
+     let dealtMatrix = deck.dealInMatrix()
+
+     assert.deepEqual(dealtMatrix, expectedMatrix)
+     assert.equal(dealtMatrix.length, 4)
+     assert.equal(dealtMatrix[0].length, 13)
   })
 })
