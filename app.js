@@ -18,23 +18,14 @@ if (environment === 'production') {
     .catch(() => {
       console.log("Connection failed")
     })
-} else if (environment === 'development') {
-  mongoose.connect("mongodb://localhost/cardDeck_dev",
+} else {
+  mongoose.connect(`mongodb://localhost/cardDeck_${environment}`,
     { useNewUrlParser: true, useUnifiedTopology: true });
   mongoose.connection
-    .once('open', () => console.log('Connected to cardDeck_dev'))
+    .once('open', () => console.log(`Connected to cardDeck_${environment}`))
     .on('error', (error) => {
       console.warn('Warning', error);
     })
-} else if (environment === 'test') {
-    mongoose.Promise = global.Promise;
-    mongoose.connect('mongodb://localhost/cardDeck_test',
-      { useNewUrlParser: true, useUnifiedTopology: true });
-    mongoose.connection
-      .once('open', () => console.log('Connected to cardDeck_test'))
-      .on('error', (error) => {
-        console.warn('Warning', error);
-      })
 }
 
 app.use(bodyParser.json());
