@@ -10,7 +10,6 @@ dealtCardsSchema.static('statistics', function() {
     { $group: {
         _id: null,
         percentCorrectAvg: { $avg: "$percentCorrect"},
-        percentCorrectSum: { $sum: "$percentCorrect"},
         countAll: { $sum: 1 }
     }}
   ])
