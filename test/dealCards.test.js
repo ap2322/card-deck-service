@@ -20,6 +20,8 @@ describe("Deal Endpoint", () => {
         expect(res.body.data.dealtCardMatrix.length).to.equal(4);
         expect(res.body.data.dealtCardMatrix[0].length).to.equal(13);
         expect(res.body.data.percentCorrect).to.be.a('number');
+        expect(res.body.data.statistics.decksDealt).to.be.a('number');
+        expect(res.body.data.statistics.averagePercentageCorrect).to.be.a('number');
         done();
       });
   });
@@ -37,7 +39,6 @@ describe("Deal Endpoint", () => {
   })
 
   after(done => {
-    console.log('done with test')
     mongoose.connection.db.dropDatabase(() => {
       mongoose.connection.close(done);
     });
