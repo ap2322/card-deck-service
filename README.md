@@ -1,8 +1,3 @@
-Card Deck Service
-- shuffles cards
-- deals them in a 13 x 4 grid
-- calculates their "correct" positions
-
 # Card Deck Service
 
 ### Introduction
@@ -13,24 +8,20 @@ Card Deck Service is an API that allows the client to retrieve a shuffled deck o
 ### Initial Setup
 - Clone down this repo and `cd` into its main directory
 - Run `npm install` to install all dependencies
-- Create databases for development and testing by running the following commands:
-```
-psql
-CREATE DATABASE play_dev
-CREATE DATABASE play_test
-\q
-```
-- Run `knex migrate:latest` to set up your development database
-- Run `knex migrate:latest --env test` before running any tests to set up the test database
+- Database in use is [MongoDB](https://docs.mongodb.com/manual/). Locally install before running in development or test.
+- Run locally with either `npm start` or `npm run start:server`
 
 ### How To Run Tests
 The test suite can be run with the following command: `npm test`
 
-### How To Use
-- All request URLs should begin with 
+### Endpoint
 
 ##### POST `/api/v1/deal`
 Creates a deck of 52 cards that is then shuffled and dealt into a 4 x 13 matrix. A card deck is comprised of 52 cards with 4 suits and 13 values. This dealt card matrix is saved in the database. The response body of creating this shuffled and dealt card deck includes the dealt card matrix.
+
+**`percentCorrect`**: The `dealtCardMatrix` is also compared to "correct" card placements as determined by suit and value. A card can get a point for having the correct suit in it's assigned row. Another point can be awarded for a card having the correct value in the assigned column. Total points available are 104. A card's percentage of points out of the total is calculated and persisted in the database as `percentCorrect`.
+
+**`statistics`**: Statistics for the entire collection of dealt cards in the database is calculated and returned with each request. It returns the total number of documents in the dealt cards collection with `decksDealt` and the average of all `percentCorrect` scores with `averagePercentageCorrect`.
 
 Example request:
 ```
@@ -42,70 +33,76 @@ Example success response:
 status 201
 body:
 {
-  "message": "Cards shuffled and dealt successfully",
-  "data": {
-      "dealtCardMatrix": [
-            [   "6H",
-                "QS",
-                "2D",
-                "6C",
-                "10C",
-                "6D",
-                "6S",
-                "QH",
-                "4H",
-                "9C",
-                "2H",
-                "AH",
-                "JD"
-             ],
+    "message": "Cards shuffled and dealt successfully",
+    "data": {
+        "dealtCardMatrix": [
             [
-                "9H",
-                "4D",
-                "7D",
-                "5D",
                 "AC",
-                "10H",
-                "3D",
-                "3H",
-                "2C",
-                "10S",
-                "5C",
-                "KD",
-                "2S"
-            ],
-            [
-                "3S",
-                "JC",
-                "4C",
-                "KH",
-                "5S",
+                "2H",
                 "AS",
-                "8H",
-                "8D",
-                "5H",
-                "7S",
-                "8C",
-                "10D",
-                "9S"
+                "10H",
+                "2S",
+                "6D",
+                "9S",
+                "QC",
+                "9D",
+                "3C",
+                "5C",
+                "4D",
+                "JS"
             ],
             [
-                "JS",
-                "8S",
-                "KC",
-                "KS",
+                "3H",
+                "KH",
+                "9H",
+                "4C",
+                "10S",
+                "8C",
                 "AD",
+                "7D",
+                "6S",
                 "QD",
-                "4S",
-                "7C",
-                "JH",
                 "7H",
-                "3C",
-                "9D",
-                "QC"
+                "5H",
+                "AH"
             ],
-       ]
-   }
+            [
+                "2D",
+                "KS",
+                "KC",
+                "7S",
+                "8H",
+                "JD",
+                "8S",
+                "10C",
+                "9C",
+                "6C",
+                "7C",
+                "KD",
+                "QS"
+            ],
+            [
+                "4S",
+                "JC",
+                "JH",
+                "6H",
+                "3S",
+                "5S",
+                "2C",
+                "8D",
+                "QH",
+                "3D",
+                "4H",
+                "5D",
+                "10D"
+            ]
+        ],
+        "percentCorrect": 0.16,
+        "statistics": {
+            "decksDealt": 24,
+            "averagePercentageCorrect": 0.17
+        }
+    }
 }
 ```
 
