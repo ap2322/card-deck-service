@@ -5,4 +5,14 @@ const dealtCardsSchema = mongoose.Schema({
   percentCorrect: { type: Number, required: true }
 });
 
+dealtCardsSchema.static('statistics', function() {
+  return this.aggregate([
+    { $group: {
+        _id: null,
+        percentCorrectAvg: { $avg: "$percentCorrect"},
+        countAll: { $sum: 1 }
+    }}
+  ])
+});
+
 module.exports = mongoose.model('dealtCards', dealtCardsSchema);

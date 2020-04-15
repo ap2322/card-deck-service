@@ -2,8 +2,6 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-// const postsRoutes = require("./routes/posts")
 const dealCardsRoutes = require("./routes/dealCards")
 
 const app = express();
@@ -52,7 +50,6 @@ app.get("/", (req, res) => {
   res.status(200).json({ message: "Welcome To Card-Deck API" });
 });
 
-// app.use("/api/posts", postsRoutes);
 app.use("/api/v1/deal", dealCardsRoutes);
 
 
