@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
   console.log('origin', req.headers.host);
   if (req.headers.host === 'localhost:3000') {
-    res.setHeader("Access-Control-Allow-Origin", 'http://localhost:3000');
+    res.setHeader("Access-Control-Allow-Origin", 'http://localhost:4200');
   } else {
     res.setHeader("Access-Control-Allow-Origin", process.env.S3_URL);
   }
