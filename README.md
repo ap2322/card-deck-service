@@ -1,9 +1,11 @@
 # Card Deck Service
 
+Deployed At: http://carddeckservice-env.eba-3gk27fss.us-east-2.elasticbeanstalk.com/
+Agile Project Board: https://github.com/users/ap2322/projects/2
+
 ### Introduction
 Card Deck Service is an API that allows the client to retrieve a shuffled deck of cards dealt in a 4 row, 13 column matrix. It's primary purpose is as a backend for [Card Deck UI](https://github.com/ap2322/card-deck-ui/).
 
-Agile Project Board: https://github.com/users/ap2322/projects/2
 
 ### Local Setup
 - Clone down this repo and `cd` into its main directory
@@ -15,6 +17,7 @@ Agile Project Board: https://github.com/users/ap2322/projects/2
 The test suite can be run with the following command: `npm test`
 
 ### Endpoint
+This service is deployed at `http://carddeckservice-env.eba-3gk27fss.us-east-2.elasticbeanstalk.com`. To verify deployment, visit the [root path](http://carddeckservice-env.eba-3gk27fss.us-east-2.elasticbeanstalk.com/).
 
 ##### POST `/api/v1/deal`
 Creates a deck of 52 cards that is then shuffled and dealt into a 4 x 13 matrix. A card deck is comprised of 52 cards with 4 suits and 13 values. This dealt card matrix is saved in the database. The response body of creating this shuffled and dealt card deck includes the dealt card matrix.
