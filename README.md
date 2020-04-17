@@ -1,11 +1,11 @@
 # Card Deck Service
 
 ### Introduction
-Agile Project Board: https://github.com/ap2322/card-deck-service/projects/1
+Card Deck Service is an API that allows the client to retrieve a shuffled deck of cards dealt in a 4 row, 13 column matrix. It's primary purpose is as a backend for [Card Deck UI](https://github.com/ap2322/card-deck-ui/).
 
-Card Deck Service is an API that allows the client to retrieve a shuffled deck of cards dealt in a 4 row, 13 column matrix. It's primary purpose is as a backend for Card Deck UI.
+Agile Project Board: https://github.com/users/ap2322/projects/2
 
-### Initial Setup
+### Local Setup
 - Clone down this repo and `cd` into its main directory
 - Run `npm install` to install all dependencies
 - Database in use is [MongoDB](https://docs.mongodb.com/manual/). Locally install before running in development or test.
